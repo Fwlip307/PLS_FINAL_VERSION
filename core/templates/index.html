@@ -1,0 +1,392 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premier League Shop</title>
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+</head>
+<body>
+    <div class="navbar" id="navbar">
+        <a href="javascript:void(0);" class="btn-1" onclick="openNav()">&#9776; <img src="{% static 'img/logopl11111.png.png' %}" alt="Logo" class="footer-logo"></a>
+        <a href="javascript:void(0);" class="menu-icon" onclick="openNav()">&#9776; MENÚ</a>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="boton_1">PRODUCTOS</a>
+            <div class="dropdown-content">
+                <a href="{% url 'camiseta' %}">Camisetas</a>
+                <a href="{% url 'accesorio' %}">Accesorios</a>
+                <a href="{% url 'zapatos' %}">Zapatos</a>
+            </div>
+        </div>
+
+        <!-- Menu desplegable Entradas -->
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="boton_1">ENTRADAS</a>
+            <div class="dropdown-content">
+                <a href="{% url 'ticket' %}">Entradas Partidos</a>
+                <a href="{% url 'tour' %}">Tours</a>
+            </div>
+        </div>
+        <div class="user-section">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-icon"><img src="{% static 'img/user_icon50px.png' %}" alt=""></a>
+                <div class="dropdown-content">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="btn-1" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
+                        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn-1">Iniciar sesión</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="welcome-message">Bienvenido, {{ user.username }}</div>
+            {% endif %}
+        </div>
+               
+        <a href="{% url 'carrito' %}"><img src="{% static 'img/icon_shop.png' %}" alt="">({{ request.carrito_count }}) </a>
+    </div>
+    <header class="header">
+        <nav>
+            <a href="{% url 'home' %}">
+                <div id="logo"> 
+                    <img src="{% static 'img/pre_logo.png' %}" alt="">
+                </div>
+            </a>
+        </nav>
+        <div id="fondo"></div>
+        <div class="header-content container">
+            <h1>Premier League Shop</h1>
+        </div>
+    </header>
+
+    
+
+    <!-- Barra lateral -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="{% url 'home' %}" class="btn-1">PREMIER LEAGUE SHOP</a>
+        <a href="{% url 'camiseta' %}" class="boton_1">CAMISETAS</a>
+        <a href="{% url 'accesorio' %}" class="boton_1">ACCESORIOS</a>
+        <a href="{% url 'tour' %}" class="boton_1">TOURS</a>
+        <a href="{% url 'ticket' %}" class="boton_1">ENTRADAS</a>
+        <a href="{% url 'zapatos' %}" class="boton_1">ZAPATOS</a>
+        <a href="{% url 'carrito' %}" class="boton_1">CARRITO({{ request.carrito_count }})</a>
+        <div class="user-section">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-icon"><img src="{% static 'img/user_icon50px.png' %}" alt=""></a>
+                <div class="dropdown-content">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="btn-1" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
+                        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn-1">Iniciar sesión</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="welcome-message">Bienvenido, {{ user.username }}</div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <section class="viip">
+        <!-- Contador de cuenta regresiva -->
+        <div class="blog-item-contador">
+            <h1>QUEDAN</h1>
+            <div id="contador">
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <div id="days" class="countdown-number">00</div>
+                        <div class="countdown-label">DÍAS</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="hours" class="countdown-number">00</div>
+                        <div class="countdown-label">HORAS</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="minutes" class="countdown-number">00</div>
+                        <div class="countdown-label">MINUTOS</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="seconds" class="countdown-number">00</div>
+                        <div class="countdown-label">SEGUNDOS</div>
+                    </div>
+                </div>
+                <div class="countdown-text">
+                    PARA QUE EMPIECE LA PREMIER LEAGUE
+                </div>
+            </div>
+        </div>
+        
+        <div class="viip-content container">
+            <h1>Resultados en Tiempo Real</h1>
+            <div id="wg-api-football-games"
+         data-host="v3.football.api-sports.io"
+         data-key="" 
+         data-date="today" 
+         data-league="39"
+         data-season="2024"
+         data-theme=""
+         data-refresh="15"
+         data-show-toolbar="true"
+         data-show-errors="false"
+         data-show-logos="true"
+         data-modal-game="true"
+         data-modal-standings="true"
+         data-modal-show-logos="true">
+    </div>
+    <script
+        type="module"
+        src="https://widgets.api-sports.io/2.0.3/widgets.js">
+    </script>
+        </div>
+    </section>
+
+    <section class="viip">
+        <div class="viip-content container">
+            <h2>Mejores Jugadores</h2>
+            <p class="txt-p">
+                Mas Destacados
+            </p>
+            <div class="viip-group">
+                <div class="viip-1">
+                    <img src="{% static 'img/erling-haaland.png' %}" alt="">
+                    <h3>Erling Haaland</h3>
+                    <p>
+                        Maximo Goleador
+                    </p>
+                    <p>
+                        27 Goles⚽
+                    </p>
+                </div>
+                <div class="viip-1">
+                    <img src="{% static 'img/ollie_watkins.png' %}" alt="">
+                    <h3>Ollie Watkins</h3>
+                    <p>
+                        Maximo Asistidor
+                    </p>
+                    <p>
+                        13 Asistencias👟
+                    </p>
+                </div>
+                <div class="viip-1">
+                    <img src="{% static 'img/raya_david.png' %}" alt="">
+                    <h3>David Raya</h3>
+                    <p>
+                        Mas Porterias a cero
+                    </p>
+                    <p>
+                        16 porterias en 0🧤
+                    </p>
+                </div>
+                <div class="viip-1">
+                    <img src="{% static 'img/bruno_fernandes.png' %}" alt="">
+                    <h3>Bruno Fernandes</h3>
+                    <p>
+                        Mas pases clave
+                    </p>
+                    <p>
+                        3.3 por partido 💡
+                    </p>
+                </div>
+                <div class="viip-1">
+                    <img src="{% static 'img/cole_palmer.png' %}" alt="">
+                    <h3>Cole Palmer</h3>
+                    <p>
+                        Goles + Asistencias
+                    </p>
+                    <p>
+                        33 Goles+Asistencias ⚽👟
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="slider-container">
+        <div class="slider">
+            <ul>
+                {% for ca in cam %}
+                <li>
+                    <div class="slide-content">
+                        <img src="{{ ca.imagen }}" alt="{{ ca.detalle }}">
+                        <div class="text-overlay bottom-left">
+                            <p>{{ ca.detalle }}</p>
+                            <a href="{% url 'addToCar' ca.codigo %}" class="btn-1">AÑADIR AL CARRITO</a>
+                            <p class="btn-1">${{ ca.precio }}</p>
+                            <a href="{% url 'camiseta' %}" class="btn-1">VER MAS</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <main class="services">
+        <div class="services-content container">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Tabla de Posiciones de Fútbol</title>
+            <div id="wg-api-football-standings"
+                data-host="v3.football.api-sports.io"
+                data-key=""
+                data-league="39"
+                data-team=""
+                data-season="2024"
+                data-theme=""
+                data-show-errors="false"
+                data-show-logos="true"
+                class="wg_loader">
+            </div>
+            <script
+                type="module"
+                src="https://widgets.api-sports.io/2.0.3/widgets.js">
+            </script>
+        </div>
+    </main>
+    
+    <h4>Productos</h4>
+    <section class="general">
+        <div class="general-1">
+            <h2>Camiseta Erling Haaland</h2>
+            <p>
+                Compra ya! la camiseta official de Erling Haaland.
+            </p>
+            <a href="{% url 'camiseta' %}" class="btn-1">Ir a Camisetas</a>
+        </div>
+        <div class="general-2"></div>
+    </section>
+    
+    <section class="general">
+        <div class="general-3"></div>
+        <div class="general-1">
+            <h2>Zapatos Mohamed Salah</h2>
+            <p>
+                Consigue ahora mismo los zapatos officiales de Mohamed Salah!
+            </p>
+            <a href="{% url 'zapatos' %}" class="btn-1">Ir a Zapatos</a>
+        </div>
+    </section>
+    
+    <section class="general">
+        <div class="general-1">
+            <h2>Replica official Trofeo PL</h2>
+            <p>
+                Haste con la replica official de Trofeo de la Premier League y sientete un campeon siempre!
+            </p>
+            <a href="{% url 'accesorio' %}" class="btn-1">Ir a Accesorios</a>
+        </div>
+        <div class="general-4"></div>
+    </section>
+    
+    <section class="general">
+        <div class="general-5"></div>
+        <div class="general-1">
+            <h2>Camiseta Ben Brereton</h2>
+            <p>
+                Compra ya! la camiseta official de Ben Brereton Diaz.
+            </p>
+            <a href="{% url 'camiseta' %}" class="btn-1">Ir a Camisetas</a>
+        </div>
+    </section>
+
+    <section class="blog">
+        <h1>Últimos Fichajes</h1>
+        <div class="blog-content">
+            <div class="blog-1">
+                <div class="blog-item">
+                    <img src="https://pbs.twimg.com/media/GSP4iuTXYAEa84s.jpg:large" alt="" class="player-image">
+                    <div class="blog-info">
+                        <h5>Joshua Zirkzee (23)</h5>
+                        <span>➔</span> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/200px-Manchester_United_FC_crest.svg.png" alt="" class="club-logo">
+                        <h5>Manchester United (42.5M)</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-2">
+                <div class="blog-item">
+                    <img src="https://pbs.twimg.com/media/GFmI4KtXcAAlcjD.jpg:large" alt="" class="player-image">
+                    <div class="blog-info">
+                        <h5>Savinho (20)</h5>
+                        <span>➔</span><img src="https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg" alt="" class="club-logo"> 
+                        <h5>Manchester City (25M)</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-1">
+                <div class="blog-item">
+                    <img src="https://pbs.twimg.com/media/GPI1qjQWwAAGY2j.jpg:large" alt="" class="player-image">
+                    <div class="blog-info">
+                        <h5>Daichi Kamada (27)</h5>
+                        <span>➔</span><img src="https://upload.wikimedia.org/wikipedia/en/a/a2/Crystal_Palace_FC_logo_%282022%29.svg" alt="" class="club-logo"> 
+                        <h5>Crystal Palace (Free)</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-1">
+                <div class="blog-item">
+                    <img src="https://pbs.twimg.com/media/GStUgwQacAIDiV3.jpg:large" alt="" class="player-image">
+                    <div class="blog-info">
+                        <h5>Leny Yoro (18) </h5>
+                        <span>➔</span> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/200px-Manchester_United_FC_crest.svg.png" alt="" class="club-logo">
+                        <h5>Manchester United (62M) </h5>
+                    </div>
+                </div>
+        </div>
+    </section>
+    
+    
+    <footer class="ssa">
+        <div class="footer-content">
+            <img src="{% static 'img/logopl11111.png.png' %}" alt="Logo" class="footer-logo">
+            <div>© 2024 PREMIER LEAGUE SHOP.</div>
+        </div>
+    </footer>
+    
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateCountdown() {
+                const endDate = new Date('2024-08-16T15:00:00').getTime();
+                const now = new Date().getTime();
+                const distance = endDate - now;
+        
+                if (distance < 0) {
+                    document.querySelector('#days').innerHTML = '00';
+                    document.querySelector('#hours').innerHTML = '00';
+                    document.querySelector('#minutes').innerHTML = '00';
+                    document.querySelector('#seconds').innerHTML = '00';
+                    return;
+                }
+        
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+                document.querySelector('#days').innerHTML = String(days).padStart(2, '0');
+                document.querySelector('#hours').innerHTML = String(hours).padStart(2, '0');
+                document.querySelector('#minutes').innerHTML = String(minutes).padStart(2, '0');
+                document.querySelector('#seconds').innerHTML = String(seconds).padStart(2, '0');
+            }
+        
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+</body>
+</html>

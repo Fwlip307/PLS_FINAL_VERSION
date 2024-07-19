@@ -1,0 +1,198 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('img/pl_fondo_vip.png') no-repeat center center fixed;
+    background-size: cover;
+}
+*{
+    color: white;
+}
+
+.action-buttons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.back-button {
+    padding: 10px;
+    background-color: rgb(61, 24, 93);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #3a1758;
+}
+
+.login-container {
+    background-color: rgb(61, 24, 93);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    position: relative;
+}
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: white;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: black;
+}
+
+button[type="submit"],
+button[type="button"].forgot-password,
+button[type="button"].register-button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(55, 0, 60);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover,
+button[type="button"].forgot-password:hover,
+button[type="button"].register-button:hover {
+    background-color: rgb(150, 60, 255);
+}
+
+/* Estilos para el botón de "Olvidé mi contraseña" */
+.forgot-password {
+    background-color: transparent;
+    color: white;
+    text-decoration: underline;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.forgot-password:hover {
+    color: #ccc;
+}
+.btn-1 {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: rgb(55, 0, 60);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Estilo al pasar el cursor sobre los botones */
+.btn-1:hover {
+    background-color: rgb(150, 60, 255);
+}
+
+
+@media (max-width: 850px) {
+    .action-buttons {
+        position: fixed; /* Ensure it stays in view */
+        top: 10px;
+        right: 10px;
+    }
+
+    .back-button {
+        width: 40px; /* Smaller size for mobile */
+        height: 40px; /* Ensure the button is a square */
+        padding: 0; /* Remove extra padding */
+        font-size: 18px; /* Adjust font size */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-container {
+        padding: 15px;
+        max-width: 90%;
+        margin-top: 15px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 8px;
+    }
+
+    button[type="submit"],
+    button[type="button"].forgot-password,
+    button[type="button"].register-button {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .action-buttons {
+        position: fixed; /* Ensure it stays in view */
+        top: 10px;
+        right: 10px;
+    }
+
+    .back-button {
+        width: 35px; /* Even smaller size for mobile */
+        height: 35px; /* Ensure the button is a square */
+        padding: 0; /* Remove extra padding */
+        font-size: 16px; /* Adjust font size */
+    }
+
+    .login-container {
+        padding: 30px;
+        max-width: 90%;
+        margin-top: 60px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 6px;
+    }
+
+    button[type="submit"],
+    button[type="button"].forgot-password,
+    button[type="button"].register-button {
+        padding: 6px;
+        font-size: 12px;
+    }
+}
